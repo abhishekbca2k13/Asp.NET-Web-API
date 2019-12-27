@@ -1,0 +1,29 @@
+        SqlConnection connectionString = new SqlConnection(ConfigurationManager.ConnectionStrings["con"].ConnectionString);
+        
+        private List<User> userList=new List<User>();
+        private User user=new User();
+        
+        //Get all user
+        public List<User> GetAllUser()
+        {
+            SqlCommand cmd = new SqlCommand("yourProcedureToReadDataFromDatabase", connectionString);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            connectionString.Open();
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            foreach(DataRow dr in dt.Rows)
+            {
+                User newUser = new User();
+                
+                newUser.Id = Convert.ToInt32(dr["Id"]);
+                newUser.Name = Convert.ToString(dr["Name"]);
+                newUser.Email = Convert.ToString(dr["Email"]);
+                newUser.Mobile = Convert.ToString(dr["Mobile"]);
+
+                userList.Add(newUser);
+            }
+            cmd.ExecuteNonQuery();
+            connectionString.Close();
+            return userList;
+        }
