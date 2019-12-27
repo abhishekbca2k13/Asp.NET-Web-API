@@ -1,0 +1,25 @@
+Reading text from Json File
+		[ResponseType(typeof(IEnumerable<User>))]
+        public IEnumerable<User> Get()
+        {            
+            //Reading Json File            
+            var jsonData = File.ReadAllText("E:/Abhishek/WebApi2/WebApi2/DataSource/user.json");
+            List<User> userList = JsonConvert.DeserializeObject<List<User>>(jsonData);           
+            return userList;
+        }	
+		
+Reading object from json file by id
+		public IHttpActionResult Get(int id)
+        {
+            //Reading Json File            
+            var jsonData = File.ReadAllText("E:/Abhishek/WebApi2/WebApi2/DataSource/user.json");
+            List<User> userList = JsonConvert.DeserializeObject<List<User>>(jsonData);
+
+			//finding object from list
+            var user = userList.FirstOrDefault((p) => p.Id == id);
+            if(user==null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }	
