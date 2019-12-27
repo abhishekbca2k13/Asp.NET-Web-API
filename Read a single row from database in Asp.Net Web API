@@ -1,0 +1,21 @@
+public User GetUserById(int id)
+        {
+            SqlCommand cmd = new SqlCommand("GetTrainingSERVUserById", connectionString);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+
+            connectionString.Open();
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            foreach (DataRow dr in dt.Rows)
+            {
+                user.Id = Convert.ToInt32(dr["Id"]);
+                user.Name = Convert.ToString(dr["Name"]);
+                user.Email = Convert.ToString(dr["Email"]);
+                user.Mobile = Convert.ToString(dr["Mobile"]);                
+            }
+            cmd.ExecuteNonQuery();
+            connectionString.Close();
+            return user;
+        }
