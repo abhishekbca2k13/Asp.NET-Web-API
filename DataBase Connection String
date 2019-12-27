@@ -1,0 +1,9 @@
+Web config Connection String (Put in your web.config file in the <configuration> tag)
+
+	<connectionStrings>  
+		<add name="yourConnectionStringName" connectionString="Data Source= yourDataSource; Integrated Security=true;Initial Catalog= yourDataBaseName; uid=yourUsedId; Password=yourPassword; " providerName="System.Data.SqlClient" />   
+	</connectionStrings>		
+	
+Connection String In Repository or controller to read the connection string
+
+        string yourConnectionStringName = ConfigurationManager.ConnectionStrings["yourConnectionStringName"].ConnectionString; 	
