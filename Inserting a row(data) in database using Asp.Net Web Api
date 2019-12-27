@@ -1,0 +1,14 @@
+        public int createUser(User user)
+        {
+            int success = 0;
+            SqlCommand cmd = new SqlCommand("yourInsertProcedure", connectionString);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Id", user.Id);
+            cmd.Parameters.AddWithValue("@Name", user.Name);
+            cmd.Parameters.AddWithValue("@Email", user.Email);
+            cmd.Parameters.AddWithValue("@Mobile", user.Mobile);
+            connectionString.Open();
+            success=cmd.ExecuteNonQuery();
+            connectionString.Close();
+            return success;
+        }
