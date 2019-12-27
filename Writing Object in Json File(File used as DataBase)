@@ -1,0 +1,21 @@
+Writing Object in Json File
+		    [HttpPost]
+        public IHttpActionResult createUser(User user)
+        {
+            if (user == null)
+            {               
+                return NotFound();
+            }
+
+            //Reading Json File            
+            var fileJsonData = File.ReadAllText("E:/Abhishek/WebApi2/WebApi2/DataSource/user.json");
+            List<User> userList = JsonConvert.DeserializeObject<List<User>>(fileJsonData);
+
+            //adding object to list
+            userList.Add(user);
+
+            //writing back to json file
+            string newJsonData = JsonConvert.SerializeObject(userList);
+            File.WriteAllText("E:/Abhishek/WebApi2/WebApi2/DataSource/user.json",newJsonData);
+            return Ok(user);
+        }
